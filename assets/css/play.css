@@ -1,0 +1,224 @@
+#board{
+    background-image: url('../img/bg.jpg');
+    background-size: cover;
+    background-position: bottom;
+    cursor: pointer;
+}
+#board:active{
+    background-color: transparent;
+    color: #000; 
+}
+
+.welcome{
+    position: fixed;
+    inset: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+.welcome.hidden{
+    display: none;
+}
+.welcome-logo{
+    max-height: 230px;
+    width: 250px;
+    margin: 16px auto;
+}
+#welcome-log{
+    font-size: 40px;
+    height: 30px;
+    margin: 0;
+}
+.welcome-bird{
+    display: flex;
+    justify-items: center;
+    margin: 50px 0;
+}
+.welcome-bird > img{
+    height: 40px;
+    animation: jump infinite 3s;
+}
+.welcome-click {
+    display: flex;
+    align-items: center;
+}
+.welcome-click-lable{
+   width:120px;
+   object-fit: contain;
+   animation: breath  infinite 4s;
+}
+.welcome-click-icon{
+    margin: 0 24px;
+    width: 40px;
+    animation: breath  infinite 1.5s;
+}
+.welcome-caution{
+    margin: 8px auto;
+    width: 80%;
+    text-align: center;
+}
+.welcome-caution:last-child{
+    color: #ccc;
+}
+
+#mark{
+    position: fixed;
+    top: 5vh;
+    left: 0;
+    right: 0;
+    width: 100%;
+    font-size: 50px;
+    text-align: center;
+    color: white;
+    margin: 0;
+}
+
+
+.letter{
+    position: fixed;
+    inset: 0;
+    height: 100%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+.letter.full,.letter.nogift{
+    display: flex;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+/* No gift */
+.letter.nogift > .letter-header > .letter-container > .letter-container-item:first-child {
+    display: none;
+}
+.letter.nogift > .letter-header > .letter-btn > .button:first-child {
+    display: none;
+}
+
+.letter-header{
+    display: block;
+}
+.letter-title{
+    margin: 0;
+    color: white;
+    font-size: 50px;
+}
+.letter-container{
+    display: flex;
+    align-items: center;
+    color: white;
+    padding: 5px;  
+    margin: 16px 0;           
+}
+.letter-container-item{
+    flex: 1;
+    margin: 0 8px;
+}
+.letter-container-item > p{
+    font-weight: bold;
+    font-size: 20px;
+}
+.letter-container-item > img, h1{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    margin: 0 auto;
+}
+
+.letter-btn{
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    margin: 0 auto;
+}
+.button{
+    padding: 0;
+    width: fit-content;
+    height: 55px;
+    max-width: 180px;
+    cursor: pointer;
+    object-fit: contain;
+}
+
+
+
+.leter-content{
+    width: 0;
+    height: 0;
+    position: absolute;
+    z-index: 10;
+    inset: 10px;
+    background-color: white;
+    transition: all ease-in-out 0.3s;
+}
+.leter-content > span{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: 25px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+}
+.leter-content.active{
+    width: 370px;
+    height: 640px;
+    height: 95%;
+    margin: 0 auto;
+}
+.leter-content img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+@keyframes breath {
+    0%{
+        transform: scale(0.9);
+    }
+    50%{
+        transform: scale(1);
+    }
+    100%{
+        transform: scale(0.9);
+    }
+}
+@keyframes breathe {
+    0%{
+        transform: scale(1.1);
+    }
+    50%{
+        transform: scale(1);
+    }
+    100%{
+        transform: scale(1.1);
+    }
+}
+@keyframes fadeIn {
+    from{
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+    to{
+        opacity: 0;
+        transform: translateY(0%);
+    }
+}
+@keyframes jump {
+    0%{
+        transform: translateY(50%);
+    }
+    50%{
+        transform: translateY(0);
+    }
+    100%{
+        transform: translateY(50%);
+    }
+}

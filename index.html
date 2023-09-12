@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, user-scalable=no" />
+    <title>Invitation Game Viet Hackathon 2023</title>
+    <link rel="stylesheet" href="./assets/css/config.css" />
+    <link rel="stylesheet" href="./assets/css/play.css" />
+    <script src="./assets/js/play.js"></script>
+  </head>
+  <body>
+    <div class="welcome">
+      <img class="welcome-logo" src="./assets/img/logo.png" alt="">
+      <p id="welcome-log"></p>
+      <div class="welcome-bird">
+        <img class="welcome-bird-default" src="../assets/img/bird.png" alt="">
+      </div>
+      <div class="welcome-click">
+        <img class="welcome-click-icon"  src="../assets/img/click.png" alt="">
+      </div>
+      <p class='welcome-caution'>Tap vào màn hình để điều khiển</p>
+      <p class='welcome-caution'>Hãy tránh các chướng ngại vật. Và thu thập phần quà bí ẩn</p>
+    
+    </div>
+    <div class="letter">
+      <div class="letter-header">
+        <p class="letter-title">GAME OVER</p>
+        <div class="letter-container">
+          <div class="letter-container-item">
+            <p>Thư mời</p>
+            <img src="./assets/img/gift.png" alt="" />
+          </div>
+          <div class="letter-container-item">
+            <p>Điểm số</p>
+            <h1 id="score">42</h1>
+          </div>
+        </div>
+        <div class="letter-btn">
+          <img
+            class="button btn-open letter-open"
+            src="./assets/img/btn_thumoi.png"
+            alt=""
+          />
+          <img
+            class="button btn-reset reset-game"
+            src="./assets/img/btn_play.png"
+            alt=""
+          />
+        </div>
+      </div>
+      <div class="leter-content">
+        <span>X</span>
+        <img id="letter-img" alt="" />
+      </div>
+    </div>
+    <h1 id="mark"></h1>
+    <canvas id="board"></canvas>
+  </body>
+</html>
