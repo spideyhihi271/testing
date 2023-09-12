@@ -1,23 +1,33 @@
+let allLoaded = false;
+let countLoaded = 0;
+let checkLoaded = () => {
+    countLoaded++;
+    if(countLoaded === 2) {
+      allLoaded = true;
+      clearID = setInterval(updateLogger, 950);
+    }
+}
+
 // Image Array
 let letterArray = [
-"thu_moi_01_thay_Tran_Duy_Phong.jpg", 
-"thu_moi_02_thay_Tran_Van_Nam.png", 
-"thu_moi_03_thay_Vu_Chi_Thanh.jpg",
-"thu_moi_04_thay_Nguyen_Thanh_Nam.jpg",
-"thu_moi_05_thay_Hoang_Van_Loi.jpg",
-"thu_moi_06_chi_Kim_Phuong.jpg",
-"thu_moi_07_thay_Tran_Ly_Anh_Tuan.jpg",
-"thu_moi_08_thay_Phuoc_Cuong.jpg",
-"thu_moi_09_co_Thu_Hang.jpg",
-"thu_moi_10_Thay_Tran_Minh_Hung.jpg",
-"thu_moi_11_Thay_Nguyen_Khanh.jpg",
-"thu_moi_12_thay_Dinh_An.jpg",
-"thu_moi_13_thay_Than_Hoang_Loc.jpg",
-"thu_moi_14_thay_Hoang_Anh.jpg",
-"thu_moi_15_co_Tran_Thi_Huong.jpg",
-"thu_moi_16_Chi_Huynh_Thanh.jpg",
-"thu_moi_17_chi_Y_Van.jpg"
-];
+  "thu_moi_01_thay_Tran_Duy_Phong.jpg", 
+  "thu_moi_02_thay_Tran_Van_Nam.png", 
+  "thu_moi_03_thay_Vu_Chi_Thanh.jpg",
+  "thu_moi_04_thay_Nguyen_Thanh_Nam.jpg",
+  "thu_moi_05_thay_Hoang_Van_Loi.jpg",
+  "thu_moi_06_chi_Kim_Phuong.jpg",
+  "thu_moi_07_thay_Tran_Ly_Anh_Tuan.jpg",
+  "thu_moi_08_thay_Phuoc_Cuong.jpg",
+  "thu_moi_09_co_Thu_Hang.jpg",
+  "thu_moi_10_Thay_Tran_Minh_Hung.jpg",
+  "thu_moi_11_Thay_Nguyen_Khanh.jpg",
+  "thu_moi_12_thay_Dinh_An.jpg",
+  "thu_moi_13_thay_Than_Hoang_Loc.jpg",
+  "thu_moi_14_thay_Hoang_Anh.jpg",
+  "thu_moi_15_co_Tran_Thi_Huong.jpg",
+  "thu_moi_16_Chi_Huynh_Thanh.jpg",
+  "thu_moi_17_chi_Y_Van.jpg"
+  ];
 
 let currentURL = window.location.href;
 let url = new URL(currentURL);
@@ -145,7 +155,12 @@ let score = 0;
 window.onload = function () {
   // Load Letter
   letterImg = document.querySelector("#letter-img");
-  letterImg.setAttribute("src", `../assets/img/${letterArray[id]}`);
+  let letterImage = new Image();
+  letterImage.src = `../assets/img/${letterArray[id]}`;
+  letterImage.onload = () => {
+    checkLoaded()
+    letterImg.src = letterImage.src;
+  }
 
   board = document.getElementById("board");
   board.height = boardHeight;
@@ -156,6 +171,7 @@ window.onload = function () {
   birdImg = new Image();
   birdImg.src = "./assets/img/bird.png";
   birdImg.onload = function () {
+    checkLoaded()
     context.drawImage(birdImg, bird.x, bird.y, bird.width, bird.height);
   };
 
@@ -173,7 +189,8 @@ window.onload = function () {
   // Ready
   loggerContainer = document.querySelector("#welcome-log");
   welcomeContainer = document.querySelector(".welcome");
-  clearID = setInterval(updateLogger, 950);
+  
+    
 
   // Mark
   markContainer = document.querySelector("#mark");
