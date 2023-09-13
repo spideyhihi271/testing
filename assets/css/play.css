@@ -90,6 +90,7 @@
 .letter.full,.letter.nogift{
     display: flex;
     background-color: rgba(0, 0, 0, 0.4);
+    animation: titleIn 0.5s 1 forwards;
 }
 /* No gift */
 .letter.nogift > .letter-header > .letter-container > .letter-container-item:first-child {
@@ -212,6 +213,16 @@
     to{
         opacity: 0;
         transform: translateY(0%);
+    }
+}
+@keyframes titleIn {
+    from{
+        opacity: 0;
+        transform: translateY(-10%) scale(1.2);
+    }
+    to{
+        opacity: 1;
+        transform: translateY(0%) scale(1);
     }
 }
 @keyframes jump {

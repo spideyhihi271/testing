@@ -64,6 +64,7 @@ function letterAction() {
     letterContainer.classList.add("full");
   }
   else {
+    letterTitle.innerHTML = 'GAME OVER';
     letterContainer.classList.add("nogift");
   } 
   letterScore = document.querySelector("#score");
