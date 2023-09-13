@@ -138,6 +138,8 @@ let giftHeight = 44;
 let giftX = pipeHeight + pipeHeight * 0.2;
 let giftY = boardHeight * 0.4;
 let giftImg;
+let giftCount = 0;
+let giftPass = false;
 
 let gift = {
   x: giftX,
@@ -153,7 +155,7 @@ let markContainer;
 //physics
 let velocityX = -2;
 let velocityY = 0;
-let gravity = 0.4;
+let gravity = 0.25;
 let timer = 2200;
 let gameOver = false;
 let score = 0;
@@ -220,15 +222,6 @@ function update() {
     context.clearRect(0, 0, board.width, board.height);
   }
 
-  //bird
-  velocityY += gravity;
-  bird.y = Math.max(bird.y + velocityY, 0);
-  context.drawImage(birdImg, bird.x, bird.y, bird.width, bird.height);
-
-  if (bird.y >= board.height) {
-    gameOver = true;
-  }
-
   // Gift
   // Đã đụng trúng
   gift.x -= 2;
@@ -237,10 +230,13 @@ function update() {
     gift.y -= 4;
   } else if (gift.isPassed === false && gift.x < 0) {
     gift.x = boardWidth * 1.5;
+    gift.isPassed = false; 
   }
-
   if (detectCollision(bird, gift)) {
     gift.isPassed = true;
+    giftCount++; 
+    gift.x = boardWidth * 1.5;
+    gift.isPassed = false;
   }
   context.drawImage(giftImg, gift.x, gift.y, gift.width, gift.height);
 
@@ -254,15 +250,20 @@ function update() {
       score += 0.5;
       pipe.passed = true;
     }
-
-    if (detectCollision(bird, pipe)) {
-      gameOver = true;
-    }
   }
 
   //clear pipes
   while (pipeArray.length > 0 && pipeArray[0].x < -pipeWidth) {
     pipeArray.shift();
+  }
+
+  //bird
+  velocityY += gravity;
+  bird.y = Math.max(bird.y + velocityY, 0);
+  context.drawImage(birdImg, bird.x, bird.y, bird.width, bird.height);
+
+  if (bird.y >= board.height) {
+    gameOver = true;
   }
 
   //score
