@@ -245,7 +245,9 @@ function update() {
   }
   if (detectCollision(bird, gift)) {
     gift.isPassed = true;
-    gameOver = true;
+    setTimeout(() => {
+      gameOver = true;
+    }, 1000);
   }
   context.drawImage(giftImg, gift.x, gift.y, gift.width, gift.height);
 
