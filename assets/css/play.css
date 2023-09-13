@@ -130,7 +130,10 @@
     height: 60px;
     margin: 0 auto;
 }
-
+.letter-loading{
+    color: white;
+    font-size: 18px;
+}
 .letter-btn{
     display: flex;
     align-items: center;
@@ -145,8 +148,6 @@
     cursor: pointer;
     object-fit: contain;
 }
-
-
 
 .leter-content{
     width: 0;
@@ -168,14 +169,14 @@
 }
 .leter-content.active{
     width: 370px;
-    height: 640px;
-    height: 95%;
-    margin: 0 auto;
+    height: 90%;
+    margin: 2% auto;
 }
 .leter-content img{
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center;
 }
 
 

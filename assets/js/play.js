@@ -1,17 +1,17 @@
 let allLoaded = false;
 let countLoaded = 0;
 let checkLoaded = () => {
-    countLoaded++;
-    if(countLoaded === 2) {
-      allLoaded = true;
-      clearID = setInterval(updateLogger, 950);
-    }
-}
+  countLoaded++;
+  if (countLoaded === 2) {
+    allLoaded = true;
+    clearID = setInterval(updateLogger, 950);
+  }
+};
 
 // Image Array
 let letterArray = [
-  "thu_moi_01_thay_Tran_Duy_Phong.jpg", 
-  "thu_moi_02_thay_Tran_Van_Nam.png", 
+  "thu_moi_01_thay_Tran_Duy_Phong.jpg",
+  "thu_moi_02_thay_Tran_Van_Nam.png",
   "thu_moi_03_thay_Vu_Chi_Thanh.jpg",
   "thu_moi_04_thay_Nguyen_Thanh_Nam.jpg",
   "thu_moi_05_thay_Hoang_Van_Loi.jpg",
@@ -26,8 +26,8 @@ let letterArray = [
   "thu_moi_14_thay_Hoang_Anh.jpg",
   "thu_moi_15_co_Tran_Thi_Huong.jpg",
   "thu_moi_16_Chi_Huynh_Thanh.jpg",
-  "thu_moi_17_chi_Y_Van.jpg"
-  ];
+  "thu_moi_17_chi_Y_Van.jpg",
+];
 
 let currentURL = window.location.href;
 let url = new URL(currentURL);
@@ -54,12 +54,12 @@ function letterAction() {
   // Show Letter
   markContainer.style.display = "none";
   letterContainer = document.querySelector(".letter");
-  if(gift.isPassed)  letterContainer.classList.add("full");
-  else letterContainer.classList.add('nogift');
+  if (gift.isPassed) letterContainer.classList.add("full");
+  else letterContainer.classList.add("nogift");
   letterScore = document.querySelector("#score");
   letterScore.innerHTML = score;
   // Show Content
-  if(gift.isPassed) {
+  if (gift.isPassed) {
     letterOpenBtn = document.querySelector(".letter-open");
     letterOpenBtn.addEventListener("click", () => {
       letterContent = document.querySelector(".leter-content");
@@ -72,9 +72,15 @@ function letterAction() {
   }
 
   // Reset Game
+
   resetGame = document.querySelector(".reset-game");
   resetGame.addEventListener("click", () => {
-    window.location.reload();
+    document.querySelector(
+      ".letter-btn"
+    ).innerHTML = `<p class="letter-loading">Vui lòng chờ...</p>`;
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
   });
 }
 
@@ -158,9 +164,9 @@ window.onload = function () {
   let letterImage = new Image();
   letterImage.src = `../assets/img/${letterArray[id]}`;
   letterImage.onload = () => {
-    checkLoaded()
+    checkLoaded();
     letterImg.src = letterImage.src;
-  }
+  };
 
   board = document.getElementById("board");
   board.height = boardHeight;
@@ -171,7 +177,7 @@ window.onload = function () {
   birdImg = new Image();
   birdImg.src = "./assets/img/bird.png";
   birdImg.onload = function () {
-    checkLoaded()
+    checkLoaded();
     context.drawImage(birdImg, bird.x, bird.y, bird.width, bird.height);
   };
 
@@ -189,8 +195,6 @@ window.onload = function () {
   // Ready
   loggerContainer = document.querySelector("#welcome-log");
   welcomeContainer = document.querySelector(".welcome");
-  
-    
 
   // Mark
   markContainer = document.querySelector("#mark");
@@ -234,7 +238,6 @@ function update() {
   } else if (gift.isPassed === false && gift.x < 0) {
     gift.x = boardWidth * 1.5;
   }
-  
 
   if (detectCollision(bird, gift)) {
     gift.isPassed = true;
