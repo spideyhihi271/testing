@@ -247,6 +247,10 @@ function update() {
       score += 0.5;
       pipe.passed = true;
     }
+
+    if (detectCollision(bird, pipe)) {
+      gameOver = true;
+    }
   }
 
   //clear pipes
