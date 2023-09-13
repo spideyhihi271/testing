@@ -131,6 +131,8 @@
     margin: 0 auto;
 }
 .letter-loading{
+    width: 90vw;
+    text-align: center;
     color: white;
     font-size: 18px;
 }
