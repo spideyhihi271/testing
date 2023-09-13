@@ -11,7 +11,7 @@ let checkLoaded = () => {
 // Image Array
 let letterArray = [
   "thu_moi_01_thay_Tran_Duy_Phong.jpg",
-  "thu_moi_02_thay_Tran_Van_Nam.png",
+  "thu_moi_02_thay_Tran_Van_Nam.jpg",
   "thu_moi_03_thay_Vu_Chi_Thanh.jpg",
   "thu_moi_04_thay_Nguyen_Thanh_Nam.jpg",
   "thu_moi_05_thay_Hoang_Van_Loi.jpg",
@@ -31,7 +31,9 @@ let letterArray = [
 
 let currentURL = window.location.href;
 let url = new URL(currentURL);
-let id = Number(url.searchParams.get("id")) || 0;
+let id = url.searchParams.get("id");
+id = Number(id);
+if (!id) id = 0;
 let letterImg;
 
 // Ready
@@ -45,17 +47,25 @@ let clearID;
 
 // Letter
 let letterContainer;
+let letterTitle;
 let letterOpenBtn;
 let letterContent;
 let letterScore;
 let resetGame;
 
 function letterAction() {
+  // Get title
+  letterTitle = document.querySelector('.letter-title');
   // Show Letter
   markContainer.style.display = "none";
   letterContainer = document.querySelector(".letter");
-  if (gift.isPassed) letterContainer.classList.add("full");
-  else letterContainer.classList.add("nogift");
+  if (gift.isPassed) {
+    letterTitle.innerHTML = 'CHIẾN THẮNG';
+    letterContainer.classList.add("full");
+  }
+  else {
+    letterContainer.classList.add("nogift");
+  } 
   letterScore = document.querySelector("#score");
   letterScore.innerHTML = score;
   // Show Content
@@ -135,7 +145,7 @@ let bottomPipeImg;
 // Gift
 let giftWidth = 54;
 let giftHeight = 44;
-let giftX = pipeHeight + pipeHeight * 0.2;
+let giftX = boardWidth * 3;
 let giftY = boardHeight * 0.4;
 let giftImg;
 let giftCount = 0;
@@ -155,8 +165,8 @@ let markContainer;
 //physics
 let velocityX = -2;
 let velocityY = 0;
-let gravity = 0.4;
-let timer = 2200;
+let gravity = 0.35;
+let timer = 2500;
 let gameOver = false;
 let score = 0;
 
@@ -230,10 +240,13 @@ function update() {
     gift.y -= 4;
   } else if (gift.isPassed === false && gift.x < 0) {
     gift.x = boardWidth * 1.5;
-    gift.isPassed = false; 
+    gift.isPassed = false;
   }
   if (detectCollision(bird, gift)) {
     gift.isPassed = true;
+    setTimeout(() => {
+      gameOver = true;
+    }, 2000);
   }
   context.drawImage(giftImg, gift.x, gift.y, gift.width, gift.height);
 
@@ -277,7 +290,7 @@ function placePipes() {
   }
 
   let randomPipeY = pipeY - pipeHeight / 4 - Math.random() * (pipeHeight / 2);
-  let openingSpace = board.height / 3.5;
+  let openingSpace = board.height / 2.7;
 
   let topPipe = {
     img: topPipeImg,
