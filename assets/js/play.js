@@ -49,43 +49,67 @@ let clearID;
 let letterContainer;
 let letterTitle;
 let letterOpenBtn;
+let letterDownload;
+let letterClose;
 let letterContent;
 let letterScore;
 let resetGame;
 
 function letterAction() {
+  // Lưu trữ các hàm gắn với sự kiện để loại bỏ sau này
+  let letterOpenClickHandler;
+  let letterCloseClickHandler;
+
   // Get title
-  letterTitle = document.querySelector('.letter-title');
+  letterTitle = document.querySelector(".letter-title");
   // Show Letter
   markContainer.style.display = "none";
   letterContainer = document.querySelector(".letter");
   if (gift.isPassed) {
-    letterTitle.innerHTML = 'CHIẾN THẮNG';
+    letterTitle.innerHTML = "CHIẾN THẮNG";
     letterContainer.classList.add("full");
-  }
-  else {
-    letterTitle.innerHTML = 'GAME OVER';
+  } else {
+    letterTitle.innerHTML = "GAME OVER";
     letterContainer.classList.add("nogift");
-  } 
+  }
   letterScore = document.querySelector("#score");
   letterScore.innerHTML = score;
   // Show Content
   if (gift.isPassed) {
     letterOpenBtn = document.querySelector(".letter-open");
-    letterOpenBtn.addEventListener("click", () => {
+
+    // Lưu hàm gắn với sự kiện click để loại bỏ sau này
+    letterOpenClickHandler = () => {
       letterContent = document.querySelector(".leter-content");
       letterContent.classList.add("active");
       // Ẩn thư
-      letterContent.addEventListener("click", () => {
-        letterContent.classList.remove("active");
+      letterClose = document.getElementsByClassName("letter-close");
+      letterClose = Array.from(letterClose);
+      letterClose.forEach((element) => {
+        // Lưu hàm gắn với sự kiện click để loại bỏ sau này
+        letterCloseClickHandler = () => {
+          letterContent.classList.remove("active");
+        };
+        element.addEventListener("click", letterCloseClickHandler);
       });
-    });
+    };
+
+    letterOpenBtn.addEventListener("click", letterOpenClickHandler);
   }
 
   // Reset Game
-
   resetGame = document.querySelector(".reset-game");
   resetGame.addEventListener("click", () => {
+    // Loại bỏ sự kiện click đã đăng ký khi nút "Reset Game" được click
+    if (letterOpenClickHandler) {
+      letterOpenBtn.removeEventListener("click", letterOpenClickHandler);
+    }
+    if (letterCloseClickHandler) {
+      letterClose.forEach((element) => {
+        element.removeEventListener("click", letterCloseClickHandler);
+      });
+    }
+
     document.querySelector(
       ".letter-btn"
     ).innerHTML = `<p class="letter-loading">Vui lòng chờ...</p>`;
@@ -174,8 +198,10 @@ let score = 0;
 window.onload = function () {
   // Load Letter
   letterImg = document.querySelector("#letter-img");
+  letterDownload = document.querySelector("#download-btn");
   let letterImage = new Image();
   letterImage.src = `../assets/img/${letterArray[id]}`;
+  letterDownload.setAttribute("href", `../assets/img/${letterArray[id]}`);
   letterImage.onload = () => {
     checkLoaded();
     letterImg.src = letterImage.src;
